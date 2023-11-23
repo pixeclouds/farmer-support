@@ -22,6 +22,9 @@ const produceSchema = new Schema({
         type: String,
         require: true
     },
+    farmer: {
+        type: String
+    },
     farmName: {
         type: String
     },

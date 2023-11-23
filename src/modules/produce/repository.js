@@ -6,8 +6,8 @@ const { v4 } = require("uuid")
 
 exports.getProduce= async(page) => {
     let limit = 10
-    let totalPages = await Produce.find()
-                        .count()
+    let totalPages = Math.floor(await Produce.find()
+                        .count() / limit)
     let produce =  await Produce.find()
                     .limit(10)
                     .skip((page - 1) * limit)
@@ -19,13 +19,13 @@ exports.getProduce= async(page) => {
 }
 
 exports.getMyProduce = async (user) => {
-    return Produce.find({farmer: user._id})
+    return Produce.find({farmer: user})
 }
 
-exports.addProduce = async (produce, user) => {
+exports.addProduce = async (produce, farmer) => {
     let _id = v4()
-    let {farmName }= await User.findById(user)
-    let newProduce = new Produce({_id,farmName, ...produce})
+    let {farmName }= await User.findById(farmer)
+    let newProduce = new Produce({_id, farmer, farmName, ...produce})
     await newProduce.save()
 
     return newProduce

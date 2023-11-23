@@ -8,11 +8,11 @@ exports.getProduce = async (req, res) => {
         //get all produce
         let result = await Repository.getProduce(page)
         res.status(200).json({
-            "meta": {
-                "page": page,
-                "total": result.totalPages
+            "meta-data": {
+                "current page": page,
+                "total-pages": result.totalPages
             },
-            "produce" : result.produce
+            "data" : result.produce
         })
         
     } catch (err) {

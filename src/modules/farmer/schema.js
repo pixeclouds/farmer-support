@@ -27,10 +27,6 @@ const userShema = new Schema({
     location: {
         type: String
     },
-    produceListing: [{
-        type: Schema.Types.String,
-        ref: 'produce-listing'
-    }],
 }, 
 {
     timestamps: true
