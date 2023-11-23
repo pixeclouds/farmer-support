@@ -41,7 +41,6 @@ const User = mongoose.model('farmer', userShema)
 
 // joi validator schema
 const userValidatorSchema = Joi.object({
-    farmerName : Joi.string(),
     email: Joi.string()
                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
                .required(),
@@ -52,8 +51,12 @@ const userValidatorSchema = Joi.object({
 })
 
 const profileValidatorSchema = Joi.object({
-    farmName : Joi.string(),
+    fullName : Joi.string()
+                    .required(),
+    farmName : Joi.string()
+                    .required(),
     location: Joi.string()
+                    .required()
 })
 
 

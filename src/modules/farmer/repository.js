@@ -12,7 +12,7 @@ exports.checkIfUserExists = async (email) => {
 
 exports.createNewUser = async (email, password) => {
     let _id = v4()
-    let newUser = new User({_id, email, password})
+    let newUser = new User({_id, email, password })
     // let newUser = new User({ username, password })
     await newUser.save()
     
@@ -24,7 +24,7 @@ exports.createNewUser = async (email, password) => {
     return newUser
 }
 
-exports.updateProfile = async (userId, farmName, location) => {
-    return await User.updateOne({_id: userId}, {farmName, location})
+exports.updateProfile = async (userId, fullName, farmName, location) => {
+    return await User.updateOne({_id: userId}, {fullName, farmName, location})
     
 }

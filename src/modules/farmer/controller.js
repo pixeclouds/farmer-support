@@ -44,10 +44,10 @@ exports.login = async (req, res ) => {
 exports.signup = async (req, res) => {
 
     try {
-        let { farmerName, email, password } = req.body
+        let { email, password } = req.body
 
         //validate input
-        let isValid = await validateInput(userValidatorSchema, { farmerName, email, password})
+        let isValid = await validateInput(userValidatorSchema, { email, password})
         if (!isValid){
             throw Error
         }
@@ -61,7 +61,7 @@ exports.signup = async (req, res) => {
         //hash password
         password = await hashPassword(password)
         //create new user
-        user = await Repository.createNewUser(farmerName, email, password)
+        user = await Repository.createNewUser(email, password)
 
         //generate token
         let token = await generateToken(user)
@@ -79,15 +79,15 @@ exports.signup = async (req, res) => {
 
 exports.profile = async (req, res) => {
     try {
-        let { farmName, location } = req.body
+        let { fullName, farmName, location } = req.body
         let userId = req.user
 
         //validate input
-        let isValid = await validateInput(profileValidatorSchema, { farmName, location})
+        let isValid = await validateInput(profileValidatorSchema, {fullName, farmName, location})
         if (!isValid){
             throw Error
         }
-        await Repository.updateProfile(userId, farmName, location)
+        await Repository.updateProfile(userId, fullName, farmName, location)
 
         res.status(200).json({"message": "update successful"})
     } catch (err) {
