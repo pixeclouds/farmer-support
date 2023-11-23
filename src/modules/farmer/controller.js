@@ -15,6 +15,10 @@ exports.login = async (req, res ) => {
             throw Error
         }
         user = await Repository.getUser(email)
+
+        if (!user) {
+            throw new Error("Account not found. Sign up instead");
+        }
         let password2 = user.password
 
         //check for duplicate
