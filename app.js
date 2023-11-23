@@ -4,18 +4,24 @@ const app = express()
 
 const { connectToDB }=  require('./src/config/database')
 const userRouter = require('./src/modules/farmer/routes')
+const produceRouter = require('./src/modules/produce/routes')
 
-app.use(express.json())
-
-app.use(userRouter)
 
 app.get('/', (req, res) => {
     res.json({"message": "farmer support API is up and running"})
 })
 
+
+app.use(express.json())
+
+
+app.use(userRouter)
+app.use(produceRouter)
+
 // database connection
 connectToDB()
 
-app.listen(3000, () => {
-    console.log(`App is running on port 3000`)
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+    console.log(`App is running on port ${PORT}`)
 })
