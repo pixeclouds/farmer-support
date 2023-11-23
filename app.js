@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(userRouter)
 
 app.get('/', (req, res) => {
-    res.send('app running')
+    res.json({"message": "farmer support API is up and running"})
 })
 
 // database connection
