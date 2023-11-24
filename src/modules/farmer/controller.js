@@ -29,14 +29,24 @@ exports.login = async (req, res ) => {
         //filter result
         user = {
             _id: user._id,
+            email: user.email,
+            farmerName: user.farmerName,
+            farmName: user.farmName,
+            location: user.location
+        }
+
+        tokenData = {
+            _id: user._id,
             email: user.email
         }
 
         //generate token
-        let token = await generateToken(user)
+        let token = await generateToken(tokenData)
 
         res.status(200).json({
-            token
+            token,
+            user
+
         })
     } catch (err) {
         res.status(400).json({
@@ -68,9 +78,9 @@ exports.signup = async (req, res) => {
         user = await Repository.createNewUser(email, password)
 
         //generate token
-        let token = await generateToken(user)
 
         res.status(200).json({ 
+            "message": "Signup success.",
             token
         })
         
@@ -92,8 +102,30 @@ exports.profile = async (req, res) => {
             throw Error
         }
         await Repository.updateProfile(userId, fullName, farmName, location)
+        let user = await Repository.getUser(req.email)
+        
+        //filter result
+        user = {
+            _id: user._id,
+            email: user.email,
+            farmerName: user.farmerName,
+            farmName: user.farmName,
+            location: user.location
+        }
+        
+        tokenData = {
+            _id: user._id,
+            email: user.email
+        }
 
-        res.status(200).json({"message": "update successful"})
+        //generate token
+        let token = await generateToken(tokenData)
+
+        res.status(200).json({
+            token,
+            user
+
+        })
     } catch (err) {
         res.status(400).json({
             "Error": err.message

@@ -11,6 +11,7 @@ exports.userAuthorized = async (req, res, next) => {
         }
         let user = await verifyToken(token)
         req.user = user._id
+        req.email = user.email
         next()
     } catch (err) {
         res.status(401).send("Access denied. Login instead")
