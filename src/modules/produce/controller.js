@@ -58,12 +58,11 @@ exports.addProduce = async (req, res) => {
             cropType: produce.cropType,
             description: produce.description,
             price: produce.price,
+            farmer: produce.farmer,
             farmName: produce.farmName
         }
 
-        res.status(200).json({
-            "produce": produce
-        })
+        res.status(200).json(produce)
         
     } catch (err) {
         res.status(400).json({

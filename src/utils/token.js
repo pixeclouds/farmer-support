@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const SECRET = process.env.JWT_SECRET
 
 exports.generateToken = async (user) => {
-    token = jwt.sign(user, SECRET, { expiresIn: "3h"})
+    token = jwt.sign(user, SECRET, { expiresIn: "10h"})
     return token
 }
 

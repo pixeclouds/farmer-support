@@ -11,6 +11,7 @@ exports.getProduce= async(page) => {
     let produce =  await Produce.find()
                     .limit(10)
                     .skip((page - 1) * limit)
+                    .select("_id cropType description price farmer farmName")
     //filter result    
     return {
         produce,
@@ -20,6 +21,8 @@ exports.getProduce= async(page) => {
 
 exports.getMyProduce = async (user) => {
     return Produce.find({farmer: user})
+                    .select("_id cropType description price farmer farmName")
+                    
 }
 
 exports.addProduce = async (produce, farmer) => {
@@ -29,6 +32,7 @@ exports.addProduce = async (produce, farmer) => {
     await newProduce.save()
 
     return newProduce
+       
 }
 
 exports.removeProduce = async (produceId) => {

@@ -42,7 +42,7 @@ const userValidatorSchema = Joi.object({
                .required(),
     password: Joi.string()
                 .alphanum()
-                .min(8)
+                .min(6)
                 .required()
 })
 
