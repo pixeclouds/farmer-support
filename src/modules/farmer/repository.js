@@ -24,7 +24,7 @@ exports.createNewUser = async (email, password) => {
     return newUser
 }
 
-exports.updateProfile = async (userId, fullName, farmName, location) => {
-    return await User.updateOne({_id: userId}, {fullName, farmName, location})
+exports.updateProfile = async (userId, farmerName, farmName, location) => {
+    return await User.updateOne({_id: userId}, {farmerName, farmName, location})
     
 }
