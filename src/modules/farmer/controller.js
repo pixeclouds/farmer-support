@@ -78,6 +78,11 @@ exports.signup = async (req, res) => {
         user = await Repository.createNewUser(email, password)
 
         //generate token
+        tokenData = {
+            _id: user._id,
+            email: user.email
+        }
+        let token = await generateToken(tokenData)
 
         res.status(200).json({ 
             "message": "Signup success.",
