@@ -106,8 +106,14 @@ exports.profile = async (req, res) => {
         if (!isValid){
             throw Error
         }
-        await Repository.updateProfile(userId, fullName, farmName, location)
+
+        // Split the location into town and state
+        const [town, state] = location.split(',').map(part => part.trim());
+
+        await Repository.updateProfile(userId, fullName, farmName, location=town, state)
         let user = await Repository.getUser(req.email)
+
+        console.log(town, state)
         
         //filter result
         user = {

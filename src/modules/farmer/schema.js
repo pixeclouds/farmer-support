@@ -27,6 +27,9 @@ const userShema = new Schema({
     location: {
         type: String
     },
+    state: {
+        type: String
+    },
 }, 
 {
     timestamps: true

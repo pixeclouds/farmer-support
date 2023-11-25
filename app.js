@@ -7,7 +7,8 @@ const { connectToDB }=  require('./src/config/database')
 const userRouter = require('./src/modules/farmer/routes')
 const produceRouter = require('./src/modules/produce/routes')
 const forecastRouter = require('./src/modules/forecast/routes')
-const AssistantRouter = require('./src/modules/assistant/routes')
+const AssistantRouter = require('./src/modules/assistant/routes');
+const pestRouter = require('./src/modules/pest/routes');
 
 
 
@@ -25,6 +26,8 @@ app.use(userRouter)
 app.use(produceRouter)
 app.use(forecastRouter)
 app.use(AssistantRouter)
+app.use(pestRouter)
+
 
 
 // database connection
