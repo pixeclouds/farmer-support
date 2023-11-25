@@ -1,7 +1,5 @@
- const { apiQuery } = require('./model')
+ const { apiQuery, titleInference} = require('./model')
  const Repository = require('./repository')
-
-
 
 
 exports.assistant = async (req, res) => {
@@ -22,7 +20,11 @@ exports.assistant = async (req, res) => {
 
         // check if conversationn is a new chat
         if (responseData.length <= 2) {
-            chatId = await Repository.createChat(farmerId, "new title", newChat)
+            // assign a title to the chat
+            newTitle = await titleInference(message[0].content)
+
+            // create new chat
+            chatId = await Repository.createChat(farmerId, newTitle, newChat)
             chat = await Repository.getChat(chatId)
 
         } else {
