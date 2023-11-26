@@ -1,5 +1,6 @@
 const { stateRegionMap } = require('../../data/regions')
 const { pestsData } = require('../../data/pests'); 
+const { pestControlData } = require('../../data/pest-control')
 
 function getStateRegion(state) {
     let stateRegion = stateRegionMap
@@ -42,10 +43,21 @@ exports.predictPest = (farmLocation) => {
     })
     .map(pest => pest.name);
 
-
     return potentialPests;
 
 }
+
+
+exports.getPestControl = async (pestNames) => {
+    // Convert pestNames to lowercase for case-insensitive comparison
+    let lowerCasePestNames = pestNames.map(name => name.toLowerCase());
+    // Filter pests based on the provided names
+    let pestControl = pestControlData.filter(pest => lowerCasePestNames.includes(pest.name.toLowerCase()))
+
+    return pestControl
+}
+
+
 
 
 

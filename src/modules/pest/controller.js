@@ -1,23 +1,30 @@
-const { predictPest } = require('./model')
+const { predictPest, getPestControl } = require('./model')
 const userRepository = require('../../modules/farmer/repository')
+const { pestControlData } = require('../../data/pest-control')
 
 exports.pestAlert = async (req, res) => {
     try {
         let farmer = userRepository.getUser(req.user)
         let farmLocation = farmer.state
-        const potentialPests = predictPest(farmLocation);
+        let potentialPests = predictPest(farmLocation);
+
 
         if (potentialPests.length > 0) {
-            alert = true
-            pests = potentialPests
+            let alert = true
+            let pestControlData = await getPestControl(potentialPests)
+
+            res.status(200).json({
+                alert: true,
+                pests: potentialPests,
+                pestControlData: pestControlData
+            })
         } else {
-            alert = false
-            pests = "There is No likely pest attack for the next 1 month"
+            res.status(200).json({
+                alert: false,
+                message: "There is No likely pest attack for the next 1 month"
+            })
         }
-        res.status(200).json({
-            alert,
-            pests
-        })
+
 
     } catch (err) {
         res.status(400).json({
