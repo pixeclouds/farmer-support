@@ -1,8 +1,8 @@
 const forecastRouter = require('express').Router()
-const { currentWeather } = require('./controller')
+const { weatherForecast } = require('./controller')
 const { userAuthorized } = require('../../middlewares/authorize.js')
 
 
-forecastRouter.get('/forecast/current', userAuthorized, currentWeather)
+forecastRouter.get('/weather/forecast', userAuthorized, weatherForecast)
 
 module.exports = forecastRouter
