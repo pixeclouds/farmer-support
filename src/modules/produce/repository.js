@@ -40,3 +40,17 @@ exports.addProduce = async (produce, imageUrl, farmer) => {
 exports.removeProduce = async (produceId) => {
     await Produce.deleteOne({_id: produceId})
 }
+
+exports.getInsightData = async(cropType)  => {
+    // Calculate the date 7 days ago
+    const currentDate = new Date()
+    const lastSevenDays = new Date(currentDate)
+    lastSevenDays.setDate(currentDate.getDate() - 7)
+
+    const filteredProduce = await Produce.find({
+        createdAt: { $gte: lastSevenDays },
+        cropType: cropType,
+    })
+
+    return filteredProduce
+}

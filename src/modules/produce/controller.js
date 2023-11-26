@@ -2,6 +2,8 @@ const Repository = require('./repository')
 const { produceValidatorSchema } = require('./schema')
 const { validateInput } = require("../../utils/validator.js")
 const {  uploadProduceImage } = require("../../utils/cloudinary.js")
+const { getMarketInsights } = require("../../utils/insights.js")
+
 
 
 
@@ -85,6 +87,20 @@ exports.removeProduce = async (req, res) => {
         res.status(200).json({
             "message": "produce deleted"
         })
+    } catch (err) {
+        res.status(400).json({
+            "Error": err.message
+        })
+    }
+}
+
+exports.getInsights = async (req, res) => {
+    try {
+        let { crop } = req.query
+        let produce = await Repository.getInsightData(crop)
+        let insights = await getMarketInsights(produce)
+
+        res.status(200).json(insights)
     } catch (err) {
         res.status(400).json({
             "Error": err.message
