@@ -28,6 +28,9 @@ const produceSchema = new Schema({
     farmName: {
         type: String
     },
+    imageUrl: {
+        type: String
+    }
 
 }, 
 {

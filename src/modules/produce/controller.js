@@ -1,6 +1,9 @@
 const Repository = require('./repository')
 const { produceValidatorSchema } = require('./schema')
 const { validateInput } = require("../../utils/validator.js")
+const {  uploadProduceImage } = require("../../utils/cloudinary.js")
+
+
 
 exports.getProduce = async (req, res) => {
     try {
@@ -49,9 +52,10 @@ exports.addProduce = async (req, res) => {
         if (!isValid){
             throw Error
         }
-        
-        
-        let produce = await Repository.addProduce(newProduce, user)
+
+        // upload image to cloudinary and return the img url
+        let imageUrl = await uploadProduceImage(req, res)        
+        let produce = await Repository.addProduce(newProduce, imageUrl, user)
 
         produce = {
             id: produce._id,
@@ -59,7 +63,8 @@ exports.addProduce = async (req, res) => {
             description: produce.description,
             price: produce.price,
             farmer: produce.farmer,
-            farmName: produce.farmName
+            farmName: produce.farmName,
+            imageUrl: produce.imageUrl
         }
 
         res.status(200).json(produce)

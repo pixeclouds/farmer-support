@@ -25,10 +25,10 @@ exports.getMyProduce = async (user) => {
                     
 }
 
-exports.addProduce = async (produce, farmer) => {
+exports.addProduce = async (produce, imageUrl, farmer) => {
     let _id = v4()
     let {farmName }= await User.findById(farmer)
-    let newProduce = new Produce({_id, farmer, farmName, ...produce})
+    let newProduce = new Produce({_id, farmer, farmName, imageUrl, ...produce})
     await newProduce.save()
 
     return newProduce

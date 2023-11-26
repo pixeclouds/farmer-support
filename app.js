@@ -22,6 +22,8 @@ app.get('/', (req, res) => {
 
 
 app.use(express.json())
+
+
 app.use(userRouter)
 app.use(produceRouter)
 app.use(forecastRouter)

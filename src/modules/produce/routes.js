@@ -5,11 +5,12 @@ const { getProduce,
         addProduce,
         removeProduce
     } = require('./controller')
+const { uploads } = require("../../utils/multer");
 
 
 produceRouter.get('/produce', userAuthorized, getProduce)
 produceRouter.get('/produce/me', userAuthorized, getMyProduce)
-produceRouter.post('/produce/me', userAuthorized, addProduce)
+produceRouter.post('/produce/me', userAuthorized, uploads.single('file'), addProduce)
 produceRouter.delete('/produce/me', userAuthorized, removeProduce)
 
 module.exports =  produceRouter 

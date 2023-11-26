@@ -28,7 +28,6 @@ exports.assistant = async (req, res) => {
             chat = await Repository.getChat(chatId)
 
         } else {
-            console.log(chatId)
             await Repository.updateChat(chatId, newChat)
             chat = await Repository.getChat(chatId)
         }
