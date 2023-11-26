@@ -6,8 +6,8 @@ const { v4 } = require("uuid")
 
 exports.getProduce= async(page) => {
     let limit = 10
-    let totalPages = Math.floor(await Produce.find()
-                        .count() / limit)
+    let totalPages = Math.ceil(await Produce.find()
+                        .count() / limit) 
     let produce =  await Produce.find()
                     .sort({ createdAt: -1 })
                     .limit(10)
