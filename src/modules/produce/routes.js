@@ -13,6 +13,6 @@ produceRouter.get('/produce', userAuthorized, getProduce)
 produceRouter.get('/produce/me', userAuthorized, getMyProduce)
 produceRouter.post('/produce/me', userAuthorized, uploads.single('file'), addProduce)
 produceRouter.delete('/produce/me', userAuthorized, removeProduce)
-produceRouter.get('/produce/insights', getInsights)
+produceRouter.get('/produce/insights', userAuthorized, getInsights)
 
 module.exports =  produceRouter 
