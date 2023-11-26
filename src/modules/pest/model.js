@@ -36,8 +36,12 @@ exports.predictPest = (farmLocation) => {
     const nextMonth = getNextMonth(currentMonth);
 
     const potentialPests = pestsData
-        .filter(pest => pest.prone_regions.includes(farmRegion) && pest.active_season.includes(nextMonth))
-        .map(pest => pest.name);
+    .filter(pest => {
+        const regions = pest.prone_regions.map(region => region.toLowerCase());
+        return regions.includes(farmRegion.toLowerCase()) && pest.active_season.includes(nextMonth);
+    })
+    .map(pest => pest.name);
+
 
     return potentialPests;
 
