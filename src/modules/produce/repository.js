@@ -9,9 +9,10 @@ exports.getProduce= async(page) => {
     let totalPages = Math.floor(await Produce.find()
                         .count() / limit)
     let produce =  await Produce.find()
+                    .sort({ createdAt: -1 })
                     .limit(10)
                     .skip((page - 1) * limit)
-                    .select("_id cropType description price farmer farmName")
+                    .select("_id cropType description price farmer farmName imageUrl")
     //filter result    
     return {
         produce,
@@ -21,7 +22,8 @@ exports.getProduce= async(page) => {
 
 exports.getMyProduce = async (user) => {
     return Produce.find({farmer: user})
-                    .select("_id cropType description price farmer farmName")
+                    .sort({ createdAt: -1 })    
+                    .select("_id cropType description price farmer farmName imageUrl")
                     
 }
 
