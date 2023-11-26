@@ -8,8 +8,8 @@ const userRouter = require('./src/modules/farmer/routes')
 const produceRouter = require('./src/modules/produce/routes')
 const forecastRouter = require('./src/modules/forecast/routes')
 const AssistantRouter = require('./src/modules/assistant/routes');
-const pestRouter = require('./src/modules/pest/routes');
-
+const pestRouter = require('./src/modules/pest/routes')
+const InsightsRouter = require('./src/modules/insights/routes');
 
 
 
@@ -29,6 +29,8 @@ app.use(produceRouter)
 app.use(forecastRouter)
 app.use(AssistantRouter)
 app.use(pestRouter)
+app.use(InsightsRouter)
+
 
 
 

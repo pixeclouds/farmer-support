@@ -94,16 +94,3 @@ exports.removeProduce = async (req, res) => {
     }
 }
 
-exports.getInsights = async (req, res) => {
-    try {
-        let { crop } = req.query
-        let produce = await Repository.getInsightData(crop)
-        let insights = await getMarketInsights(produce)
-
-        res.status(200).json(insights)
-    } catch (err) {
-        res.status(400).json({
-            "Error": err.message
-        })
-    }
-}
