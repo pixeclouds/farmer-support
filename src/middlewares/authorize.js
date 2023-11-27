@@ -3,9 +3,7 @@ const { getUser } = require("../modules/farmer/repository")
 
 //check if user is signed in
 exports.userAuthorized = async (req, res, next) => {
-    // let { Authorization } = req.headers
     let Authorization = req.get("Authorization")
-    console.log(Authorization)
     let token = Authorization.split(" ")[1]
     try {
         if(!token){
@@ -16,6 +14,7 @@ exports.userAuthorized = async (req, res, next) => {
         req.email = user.email
         next()
     } catch (err) {
+        console.log(err.message)
         res.status(401).send("Access denied. Login instead")
     }
 }

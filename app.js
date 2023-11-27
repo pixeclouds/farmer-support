@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
-const cors = require('cors');
+const cors = require('cors')
+const morgan = require('morgan')
 const app = express()
 
 const { connectToDB }=  require('./src/config/database')
@@ -12,9 +13,10 @@ const pestRouter = require('./src/modules/pest/routes')
 const InsightsRouter = require('./src/modules/insights/routes');
 
 
-
 // enable CORS for all routes
-app.use(cors());
+app.use(cors())
+app.use(morgan('dev'))
+
 
 app.get('/', (req, res) => {
     res.json({"message": "farmer support API is up and running"})
