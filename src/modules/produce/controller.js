@@ -6,7 +6,7 @@ const { getMarketInsights } = require("../../utils/insights.js")
 
 
 
-
+// get all items for the produce listing  page
 exports.getProduce = async (req, res) => {
     try {
         let page  = req.query.page || 1
@@ -27,6 +27,7 @@ exports.getProduce = async (req, res) => {
     }
 }
 
+// get a farmer's personal produce listing
 exports.getMyProduce = async (req, res) => {
     try {
         let user = req.user
@@ -44,6 +45,7 @@ exports.getMyProduce = async (req, res) => {
 }
 
 
+// add a new produce to the listing
 exports.addProduce = async (req, res) => {
     try {
         let user = req.user
@@ -54,6 +56,8 @@ exports.addProduce = async (req, res) => {
         if (!isValid){
             throw Error
         }
+        // convert produce name to lowercase
+        newProduce.cropType = newProduce.cropType.toLowerCase()
 
         // upload image to cloudinary and return the img url
         let imageUrl = await uploadProduceImage(req, res)        
@@ -79,6 +83,7 @@ exports.addProduce = async (req, res) => {
 }
 
 
+// delete a produce from the listing 
 exports.removeProduce = async (req, res) => {
     try {
         let produceId = req.query.id

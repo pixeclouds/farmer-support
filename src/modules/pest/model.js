@@ -34,6 +34,15 @@ async function getNextMonth(currentMonth) {
     return nextMonth;
 }
 
+
+/*
+    Pest prediction algorithm
+       data - the algorithm works with dummy data, as there are no suitable local data
+              to feed into it
+       prediction parameters - (i) farmer location : is the farm located in a pest prone region 
+                                (ii) time of the year: is the active season of the pest near (1 months time)
+                                (iii) crops affected 
+*/
 exports.predictPest = async (farmLocation) => {
     const farmRegion = await getStateRegion(farmLocation);    
     const currentMonth = await getCurrentMonth();

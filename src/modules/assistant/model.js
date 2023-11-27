@@ -18,7 +18,7 @@ exports.apiQuery = async (messageObj) => {
         ,
         {
             role: "system",
-            content: "If the first message after this is only a greeting, respond by asking about the weather on the farm today and ask if the user has any other question"
+            content: "If the first message after this is ONLY a greeting, respond by asking about the weather on the farm today and ask if the user has any other question"
         }
         
     ]
@@ -41,7 +41,7 @@ exports.titleInference = async (message) => {
     let titleQuery = [
         {
             "role": "system",
-            "content": "this is a conversation between a chatbot and a user. Deduce a suitable title for the conversation based on the context of the message.Respond only with the title"
+            "content": "this is a conversation between a chatbot and a user. Deduce a suitable short title for the conversation based on the context of the message.Respond only with the title"
         },
         {
             "role": "system",

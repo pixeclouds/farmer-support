@@ -1,3 +1,4 @@
+// state to region mapper data, to be used to pest attack prediction
 const stateRegionMap = {
     "Abia": "Southeastern Nigeria",
     "Adamawa": "Northeastern Nigeria",

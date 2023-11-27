@@ -1,3 +1,5 @@
+// control methods data for the pests
+
 const pestControlData = [
     {
         "name": "Maize Weevil",
