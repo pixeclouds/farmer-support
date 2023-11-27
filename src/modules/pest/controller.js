@@ -4,11 +4,10 @@ const { pestControlData } = require('../../data/pest-control')
 
 exports.pestAlert = async (req, res) => {
     try {
-        let farmer = userRepository.getUser(req.user)
+        let farmer = await userRepository.getUser(req.email)
         let farmLocation = farmer.state
-        let potentialPests = predictPest(farmLocation);
-
-
+        let potentialPests = await predictPest(farmLocation)
+         
         if (potentialPests.length > 0) {
             let alert = true
             let pestControlData = await getPestControl(potentialPests)

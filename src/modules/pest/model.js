@@ -2,12 +2,15 @@ const { stateRegionMap } = require('../../data/regions')
 const { pestsData } = require('../../data/pests'); 
 const { pestControlData } = require('../../data/pest-control')
 
-function getStateRegion(state) {
+async function getStateRegion(state) {
+    // capitalize state string to comform with the keys of the stateRegionMap dictionary
+    state = state.charAt(0).toUpperCase() + state.slice(1).toLowerCase();
+
     let stateRegion = stateRegionMap
     return stateRegion[state] || "Federal Capital Territory";
 }
 
-function getCurrentMonth() {
+async function getCurrentMonth() {
     const months = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -19,7 +22,7 @@ function getCurrentMonth() {
     return currentMonth;
 }
 
-function getNextMonth(currentMonth) {
+async function getNextMonth(currentMonth) {
     const monthsMap = {
         "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
         "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
@@ -31,10 +34,10 @@ function getNextMonth(currentMonth) {
     return nextMonth;
 }
 
-exports.predictPest = (farmLocation) => {
-    const farmRegion = getStateRegion(farmLocation);       
-    const currentMonth = getCurrentMonth();
-    const nextMonth = getNextMonth(currentMonth);
+exports.predictPest = async (farmLocation) => {
+    const farmRegion = await getStateRegion(farmLocation);    
+    const currentMonth = await getCurrentMonth();
+    const nextMonth = await getNextMonth(currentMonth);
 
     const potentialPests = pestsData
     .filter(pest => {
