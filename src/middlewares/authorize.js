@@ -4,6 +4,7 @@ const { getUser } = require("../modules/farmer/repository")
 //check if user is signed in
 exports.userAuthorized = async (req, res, next) => {
     let Authorization = req.get("Authorization")
+    console.log(Authorization)
     let token = Authorization.split(" ")[1]
     try {
         if(!token){
