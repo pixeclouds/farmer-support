@@ -7,7 +7,7 @@ exports.weatherForecast = async (req, res) => {
     try {
         let { location } = await userRepository.getUser(req.email)
         let {latitude, longitude } = await getLatLong(location)
-        let weather = await getWeatherForecast(latitude, longitude)
+        let weather = await getWeatherForecast(latitude, longitude, location)
 
         res.status(200).json(weather)
         

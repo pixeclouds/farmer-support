@@ -20,7 +20,7 @@ exports.getLatLong = async (locationName) => {
 
 
 
-exports.getWeatherForecast = async (latitude, longitude)  => {
+exports.getWeatherForecast = async (latitude, longitude, location )  => {
   try {
     // Make a request to the weather forecast API
     const response = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${parseFloat(latitude)}&longitude=${parseFloat(longitude)}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`);
@@ -28,6 +28,7 @@ exports.getWeatherForecast = async (latitude, longitude)  => {
     // const response = await axios.get('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m')
 
     let weatherData = response.data
+
 
   
   // Extracting data for the next day 
@@ -48,9 +49,13 @@ exports.getWeatherForecast = async (latitude, longitude)  => {
   
   let currentWeather = weatherData.current
 
+  // get complementary weather data from another api (open weather api)
+  let otherWeatherData = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location},ng&APPID=${process.env.OPEN_WEATHER_API}`)
+
   return {
     currentWeather: currentWeather,
-    forecastWeather: forecastData
+    forecastWeather: forecastData,
+    otherWeatherData: otherWeatherData.data
   }
 
 
